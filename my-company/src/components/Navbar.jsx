@@ -1,3 +1,5 @@
+// src/components/Navbar.jsx
+import React from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
@@ -7,7 +9,9 @@ function Navbar() {
         backgroundColor: "#333",
         color: "#fff",
         padding: "10px 0",
-        textAlign: "center",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <Link
