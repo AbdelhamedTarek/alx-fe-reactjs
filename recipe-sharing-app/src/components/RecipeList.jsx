@@ -1,23 +1,22 @@
-import React from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+// src/components/RecipeList.jsx
+import { Link } from "react-router-dom";
 import { useRecipeStore } from "./recipeStore";
+import { useEffect } from "react";
 
 const RecipeList = () => {
-  const recipes = useRecipeStore((state) => state.recipes);
+  const recipes = useRecipeStore((state) => state.filteredRecipes);
+
+  useEffect(() => {
+    useRecipeStore.getState().filterRecipes();
+  }, []);
 
   return (
-    <div className="recipe-list">
-      {recipes.length === 0 ? (
-        <p className="no-results">No recipes found. Add some!</p>
-      ) : (
+    <div>
+      {recipes.length > 0 ? (
         recipes.map((recipe) => (
-          <div
-            key={recipe.id}
-            className="recipe-card p-4 mb-4 border rounded-md shadow-md bg-white"
-          >
-            <h3 className="text-xl font-semibold mb-2">{recipe.title}</h3>
+          <div key={recipe.id} className="mb-4 p-4 border rounded shadow">
+            <h3 className="text-xl font-semibold">{recipe.title}</h3>
             <p>{recipe.description}</p>
-            {/* Link to individual recipe details */}
             <Link
               to={`/recipe/${recipe.id}`}
               className="text-blue-500 hover:text-blue-700 mt-2 block"
@@ -26,6 +25,8 @@ const RecipeList = () => {
             </Link>
           </div>
         ))
+      ) : (
+        <p>No recipes added yet.</p>
       )}
     </div>
   );
