@@ -1,68 +1,122 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
+/* Base Styles */
 body {
+  font-family: "Arial", sans-serif;
+  background-color: #f9fafb;
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 2rem;
+  text-align: center;
+  color: #333;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #4caf50; /* Green on focus */
+  outline: none;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  background-color: #4caf50;
+  color: white;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+button:hover {
+  background-color: #45a049;
+}
+
+/* Recipe Card Styling */
+.recipe-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-card h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.recipe-card p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.recipe-card .actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.recipe-card .actions button {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.recipe-card .actions .edit-btn {
+  background-color: #ff9800;
+  color: white;
+}
+
+.recipe-card .actions .delete-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.recipe-card .actions button:hover {
+  opacity: 0.8;
+}
+
+/* Empty State */
+.no-recipes {
+  font-size: 1.2rem;
+  text-align: center;
+  color: #999;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
   }
-  a:hover {
-    color: #747bff;
+
+  h1 {
+    font-size: 1.5rem;
   }
-  button {
-    background-color: #f9f9f9;
+
+  .recipe-card {
+    padding: 1rem;
+  }
+
+  .recipe-card h3 {
+    font-size: 1.25rem;
   }
 }
