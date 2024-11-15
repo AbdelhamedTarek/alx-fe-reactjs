@@ -1,24 +1,29 @@
-// src/components/RecipeList.jsx
-import React, { useEffect } from "react";
+import React from "react";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import { useRecipeStore } from "./recipeStore";
 
 const RecipeList = () => {
-  const recipes = useRecipeStore((state) => state.filteredRecipes);
-
-  useEffect(() => {
-    // Initial call to filter recipes (if there's already a search term)
-    useRecipeStore.getState().filterRecipes();
-  }, []);
+  const recipes = useRecipeStore((state) => state.recipes);
 
   return (
-    <div>
+    <div className="recipe-list">
       {recipes.length === 0 ? (
-        <p>No recipes found.</p>
+        <p className="no-results">No recipes found. Add some!</p>
       ) : (
         recipes.map((recipe) => (
-          <div key={recipe.id} className="mb-4 p-4 border rounded">
-            <h3 className="text-xl font-semibold">{recipe.title}</h3>
+          <div
+            key={recipe.id}
+            className="recipe-card p-4 mb-4 border rounded-md shadow-md bg-white"
+          >
+            <h3 className="text-xl font-semibold mb-2">{recipe.title}</h3>
             <p>{recipe.description}</p>
+            {/* Link to individual recipe details */}
+            <Link
+              to={`/recipe/${recipe.id}`}
+              className="text-blue-500 hover:text-blue-700 mt-2 block"
+            >
+              View Details
+            </Link>
           </div>
         ))
       )}

@@ -1,32 +1,30 @@
+import React from "react";
+import { useParams } from "react-router-dom"; // To access the dynamic ID from the URL
 import { useRecipeStore } from "./recipeStore";
-import { Link } from "react-router-dom";
-import EditRecipeForm from "./EditRecipeForm";
-import DeleteRecipeButton from "./DeleteRecipeButton";
 
-const RecipeDetails = ({ recipeId }) => {
+const RecipeDetails = () => {
+  const { id } = useParams(); // Get the ID of the recipe from the URL
   const recipe = useRecipeStore((state) =>
-    state.recipes.find((recipe) => recipe.id === recipeId)
+    state.recipes.find((recipe) => recipe.id === parseInt(id))
   );
 
   if (!recipe) {
-    return <p>Recipe not found.</p>;
+    return <div>Recipe not found</div>;
   }
 
   return (
-    <div>
-      <h1 className="text-2xl font-semibold">{recipe.title}</h1>
-      <p>{recipe.description}</p>
-
-      {/* Edit and delete buttons */}
-      <div className="mt-4">
-        <EditRecipeForm recipe={recipe} />
-        <DeleteRecipeButton recipeId={recipe.id} />
-      </div>
-
-      {/* Link to go back to the recipe list */}
-      <Link to="/" className="text-blue-500">
-        Back to Recipe List
-      </Link>
+    <div className="recipe-details p-6 mb-4 border rounded-md shadow-md bg-white">
+      <h1 className="text-3xl font-bold">{recipe.title}</h1>
+      <p className="text-lg mt-2">{recipe.description}</p>
+      <h3 className="text-xl mt-4">Ingredients:</h3>
+      <ul className="list-disc pl-6 mt-2">
+        {recipe.ingredients &&
+          recipe.ingredients.map((ingredient, index) => (
+            <li key={index}>{ingredient}</li>
+          ))}
+      </ul>
+      <h3 className="text-xl mt-4">Instructions:</h3>
+      <p>{recipe.instructions}</p>
     </div>
   );
 };
