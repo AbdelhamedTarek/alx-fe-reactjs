@@ -5,23 +5,60 @@ const RegistrationForm = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  // Validation functions
+  const validateEmail = () => {
+    if (!email) {
+      setError("Email is required");
+      return false;
+    }
+    return true;
+  };
+
+  const validatePassword = () => {
+    if (!password) {
+      setError("Password is required");
+      return false;
+    }
+    return true;
+  };
+
+  const validateUsername = () => {
+    if (!username) {
+      setError("Username is required");
+      return false;
+    }
+    return true;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!username || !email || !password) {
-      alert("All fields are required");
+
+    // Run separate validations
+    if (!validateUsername() || !validateEmail() || !validatePassword()) {
       return;
     }
+
+    // Clear errors and log data
+    setError("");
     console.log("Form submitted:", { username, email, password });
+    alert("Registration successful!");
+    // Reset form (optional)
+    setUsername("");
+    setEmail("");
+    setPassword("");
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <h2>Registration Form</h2>
+      {error && <p style={{ color: "red" }}>{error}</p>}
       <div>
         <label>Username:</label>
         <input
           type="text"
-          value={username} // Controlled input
+          value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
@@ -29,7 +66,7 @@ const RegistrationForm = () => {
         <label>Email:</label>
         <input
           type="email"
-          value={email} // Controlled input
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
@@ -37,7 +74,7 @@ const RegistrationForm = () => {
         <label>Password:</label>
         <input
           type="password"
-          value={password} // Controlled input
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
