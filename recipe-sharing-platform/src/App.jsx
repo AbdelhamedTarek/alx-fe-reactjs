@@ -1,11 +1,12 @@
+import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import RecipeDetail from "./components/RecipeDetail";
 import AddRecipeForm from "./components/AddRecipeForm";
-import { useState } from "react";
+import recipeData from "./data.json";
 
 function App() {
-  const [recipes, setRecipes] = useState(initialRecipes);
+  const [recipes, setRecipes] = useState(recipeData);
   const handleAddRecipe = (newRecipe) => {
     setRecipes([...recipes, newRecipe]);
   };
