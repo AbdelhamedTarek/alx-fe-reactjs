@@ -12,7 +12,7 @@
       "Salt",
       "Black pepper"
     ],
-    "steps": "Boil the pasta. In a bowl, mix eggs and cheese. Fry pancetta until crispy. Combine everything and season with salt and pepper."
+    "instructions": "Boil the pasta. In a bowl, mix eggs and cheese. Fry pancetta until crispy. Combine everything and season with salt and pepper."
   },
   {
     "id": 2,
@@ -27,6 +27,6 @@
       "1/2 cup cream",
       "Salt"
     ],
-    "steps": "Marinate chicken in yogurt and spices. Grill until cooked. Cook tomato puree with cream and season. Combine with chicken."
+    "instructions": "Marinate chicken in yogurt and spices. Grill until cooked. Cook tomato puree with cream and season. Combine with chicken."
   }
 ]

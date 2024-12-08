@@ -39,7 +39,7 @@ const RecipeDetail = () => {
           ))}
         </ul>
         <h2 className="text-2xl font-semibold mb-4">Cooking Instructions:</h2>
-        <p className="text-gray-700 leading-relaxed">{recipe.steps}</p>
+        <p className="text-gray-700 leading-relaxed">{recipe.instructions}</p>
       </div>
     </div>
   );
