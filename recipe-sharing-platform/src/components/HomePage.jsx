@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import recipeData from "../data.json"; // Adjust the path based on your file structure
 
 const HomePage = () => {
@@ -18,15 +19,17 @@ const HomePage = () => {
             key={recipe.id}
             className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg hover:scale-105 transition-transform"
           >
-            <img
-              src={recipe.image}
-              alt={recipe.title}
-              className="w-full h-40 object-cover"
-            />
-            <div className="p-4">
-              <h2 className="text-xl font-semibold mb-2">{recipe.title}</h2>
-              <p className="text-gray-600">{recipe.summary}</p>
-            </div>
+            <Link to={`recipe/${recipe.id}`}>
+              <img
+                src={recipe.image}
+                alt={recipe.title}
+                className="w-full h-40 object-cover"
+              />
+              <div className="p-4">
+                <h2 className="text-xl font-semibold mb-2">{recipe.title}</h2>
+                <p className="text-gray-600">{recipe.summary}</p>
+              </div>
+            </Link>
           </div>
         ))}
       </div>
