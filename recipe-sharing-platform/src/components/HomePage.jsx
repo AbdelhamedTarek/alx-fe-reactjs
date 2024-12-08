@@ -33,6 +33,14 @@ const HomePage = () => {
           </div>
         ))}
       </div>
+      <div className="text-center mt-6">
+        <Link
+          to="/add"
+          className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
+        >
+          Add a New Recipe
+        </Link>
+      </div>
     </div>
   );
 };
