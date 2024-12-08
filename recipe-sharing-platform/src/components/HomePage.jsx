@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
+import recipeData from "../data.json"; // Adjust the path based on your file structure
 
 const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    // Fetching mock data from data.json
-    fetch("data.json")
-      .then((response) => response.json())
-      .then((data) => setRecipes(data))
-      .catch((error) => console.error("Error loading data:", error));
+    // Load data from the imported JSON file
+    setRecipes(recipeData);
   }, []);
 
   return (
