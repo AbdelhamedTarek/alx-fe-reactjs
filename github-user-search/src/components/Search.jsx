@@ -24,6 +24,7 @@ const Search = () => {
       const results = await searchUsers(query);
       setSearchResults(results.items);
     } catch (err) {
+      console.error(err);
       setError(true);
     } finally {
       setLoading(false);
