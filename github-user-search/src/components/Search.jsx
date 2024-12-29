@@ -1,28 +1,32 @@
 import { useState } from "react";
-import { searchUsers } from "../services/githubService";
+import { fetchUserData, searchUsers } from "../services/githubService";
 
 const Search = () => {
   const [username, setUsername] = useState("");
   const [location, setLocation] = useState("");
   const [minRepos, setMinRepos] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [userDetails, setUserDetails] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [advancedSearch, setAdvancedSearch] = useState(false);
 
   const handleSearch = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(false);
     setSearchResults([]);
+    setUserDetails(null);
 
     try {
-      const query = {
-        username,
-        location,
-        minRepos,
-      };
-      const results = await searchUsers(query);
-      setSearchResults(results.items);
+      if (advancedSearch) {
+        const query = { username, location, minRepos };
+        const results = await searchUsers(query);
+        setSearchResults(results.items);
+      } else {
+        const data = await fetchUserData(username);
+        setUserDetails(data);
+      }
     } catch (err) {
       console.error(err);
       setError(true);
@@ -44,20 +48,34 @@ const Search = () => {
           onChange={(e) => setUsername(e.target.value)}
           className="p-2 border rounded"
         />
-        <input
-          type="text"
-          placeholder="Location (e.g., New York)"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          className="p-2 border rounded"
-        />
-        <input
-          type="number"
-          placeholder="Minimum Repositories"
-          value={minRepos}
-          onChange={(e) => setMinRepos(e.target.value)}
-          className="p-2 border rounded"
-        />
+        {advancedSearch && (
+          <>
+            <input
+              type="text"
+              placeholder="Location (e.g., New York)"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="p-2 border rounded"
+            />
+            <input
+              type="number"
+              placeholder="Minimum Repositories"
+              value={minRepos}
+              onChange={(e) => setMinRepos(e.target.value)}
+              className="p-2 border rounded"
+            />
+          </>
+        )}
+        <div className="flex items-center gap-4">
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={advancedSearch}
+              onChange={(e) => setAdvancedSearch(e.target.checked)}
+            />
+            Advanced Search
+          </label>
+        </div>
         <button
           type="submit"
           className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
@@ -73,6 +91,31 @@ const Search = () => {
         </p>
       )}
 
+      {/* Display User Details */}
+      {userDetails && (
+        <div className="mt-6 flex flex-col items-center bg-white p-4 rounded shadow">
+          <img
+            src={userDetails.avatar_url}
+            alt={userDetails.name || userDetails.login}
+            className="w-24 h-24 rounded-full"
+          />
+          <h2 className="text-xl font-bold mt-4">
+            {userDetails.name || userDetails.login}
+          </h2>
+          <p>Location: {userDetails.location || "N/A"}</p>
+          <p>Public Repositories: {userDetails.public_repos}</p>
+          <a
+            href={userDetails.html_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:underline mt-2"
+          >
+            View Profile
+          </a>
+        </div>
+      )}
+
+      {/* Display Search Results */}
       <div className="mt-6">
         {searchResults.map((user) => (
           <div
@@ -86,8 +129,6 @@ const Search = () => {
             />
             <div>
               <h2 className="text-lg font-bold">{user.login}</h2>
-              {user.location && <p>Location: {user.location}</p>}
-              <p>Repos: {user.public_repos || "N/A"}</p>
               <a
                 href={user.html_url}
                 target="_blank"
