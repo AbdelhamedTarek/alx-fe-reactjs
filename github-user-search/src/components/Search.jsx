@@ -37,7 +37,7 @@ const Search = () => {
       </form>
 
       {loading && <p>Loading...</p>}
-      {error && <p>Looks like we can&apos;t find the user.</p>}
+      {error && <p>Looks like we cant find the user.</p>}
       {userData && (
         <div>
           <img src={userData.avatar_url} alt={userData.name} width={100} />
